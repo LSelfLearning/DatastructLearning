@@ -5,15 +5,15 @@ import common.Logger;
 /**
  * 数组的插入、删除、按照下标随机访问操作
  */
-public class Array {
-    private int[] data;
+public class GenericArray<T> {
+    private T[] data;
     //数组容量
     private int capacity;
     //元素个数
     private int count;
 
-    public Array(int capacity) {
-        data = new int[capacity];
+    public GenericArray(int capacity) {
+        data = (T[]) new Object[capacity];
         this.capacity = capacity;
         count = 0;
     }
@@ -21,9 +21,9 @@ public class Array {
     /**
      * 增
      */
-    public boolean insert(int index, int value) {
+    public boolean insert(int index, T value) {
         if (count == capacity) {
-            int[] newArr = new int[capacity * 2];
+            T[] newArr = (T[]) new Object[capacity * 2];
             System.arraycopy(data, 0, newArr, 0, data.length);
             data = newArr;
             capacity = capacity * 2;
@@ -63,7 +63,7 @@ public class Array {
         }
         count--;
         if (count < capacity / 2) {
-            int newArr[] = new int[capacity / 2];
+            T[] newArr = (T[]) new Object[capacity / 2];
             System.arraycopy(data, 0, newArr, 0, count);
             data = newArr;
             capacity /= 2;
@@ -74,7 +74,7 @@ public class Array {
     /**
      * 改
      */
-    public boolean update(int index, int value) {
+    public boolean update(int index, T value) {
         if (index >= 0 && index < count) {
             data[index] = value;
             return true;
@@ -85,7 +85,7 @@ public class Array {
     /**
      * 查
      */
-    public int search(int index) {
+    public T search(int index) {
         if (index < 0 || index >= count)
             System.out.println("索引越界");
         return data[index];
@@ -100,8 +100,8 @@ public class Array {
     }
 
     public static void main(String[] args) {
-        Array arr = new Array(2);
-        arr.insert(0, 1);
+        GenericArray arr = new GenericArray(2);
+        arr.insert(0, "Hello");
         arr.insert(1, 3);
         arr.insert(2, 5);
         arr.insert(3, 7);
