@@ -36,9 +36,21 @@ public class Solution2 {
         return dummyHead.next;
     }
 
+    public static ListNode delEleRecursive(ListNode head, int val) {
+        if (head == null)
+            return head;
+        ListNode result = delEleRecursive(head.next, val);
+        if (head.val == val) {
+            return result;
+        } else {
+            head.next = result;
+            return head;
+        }
+    }
+
     public static void main(String[] args) {
         ListNode listNode = generateLinkedList();
         Logger.log(listNode);
-        Logger.log(removeElements(listNode, 1));
+        Logger.log(delEleRecursive(listNode, 1));
     }
 }

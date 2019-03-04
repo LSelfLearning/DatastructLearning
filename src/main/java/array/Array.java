@@ -34,13 +34,13 @@ public class Array<E> {
 
     // 在index索引的位置插入一个新元素e
     public void add(int index, E e) {
-
+        //检查索引是否合法
         if (index < 0 || index > size)
             throw new IllegalArgumentException("Add failed. Require index >= 0 and index <= size.");
-
+        //数组是否满了
         if (size == data.length)
             resize(2 * data.length);
-
+        //从index+1开始循环后移，index位置放新元素
         for (int i = size - 1; i >= index; i--)
             data[i + 1] = data[i];
 
