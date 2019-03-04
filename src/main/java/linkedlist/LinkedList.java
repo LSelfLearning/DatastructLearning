@@ -1,29 +1,26 @@
 package linkedlist;
 
-public class LinkedList<E> {
-    private Node dummyHead;
+public class LinkedList<E> implements ILinkedList<E> {
+
     private int size;
+    private Node dummyHead;
 
     public LinkedList() {
         dummyHead = new Node(null, null);
+        size = 0;
     }
 
+    @Override
     public int getSize() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
-    public void addFirst(E e) {
-        add(0, e);
-    }
-
-    public void addLast(E e) {
-        add(size, e);
-    }
-
+    @Override
     public void add(int index, E e) {
         checkIndexValid(index);
         Node pre = dummyHead;
@@ -34,6 +31,17 @@ public class LinkedList<E> {
         size++;
     }
 
+    @Override
+    public void addFirst(E e) {
+        add(0, e);
+    }
+
+    @Override
+    public void addLast(E e) {
+        add(size, e);
+    }
+
+    @Override
     public E remove(int index) {
         checkIndexValid(index);
         Node pre = dummyHead;
@@ -44,99 +52,92 @@ public class LinkedList<E> {
         pre.next = delNode.next;
         delNode.next = null;
         size--;
-        return delNode.data;
+        return delNode.val;
     }
 
+    @Override
     public E removeFirst() {
         return remove(0);
     }
 
+    @Override
     public E removeLast() {
         return remove(size - 1);
     }
 
-    public E get(int index) {
-        checkIndexValid(index);
-        Node cur = dummyHead;
-        for (int i = 0; i <= index; i++) {
-            cur = cur.next;
-        }
-        return cur.data;
-    }
-
-    public E getFisrt() {
-        return get(0);
-    }
-
-    public E getLast() {
-        return get(size);
-    }
-
+    @Override
     public void set(int index, E e) {
         checkIndexValid(index);
         Node cur = dummyHead;
         for (int i = 0; i <= index; i++) {
             cur = cur.next;
         }
-        cur.data = e;
-    }
-
-    public boolean contains(E e) {
-        Node cur = dummyHead.next;
-        while (cur != null) {
-            if (cur.data == e)
-                return true;
-            cur = cur.next;
-        }
-        return false;
+        cur.val = e;
     }
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("LinkedList2 :    ");
-        Node cur = dummyHead;
-        for (int i = 0; i < size; i++) {
+    public E get(int index) {
+        checkIndexValid(index);
+        Node cur = dummyHead.next;
+        for (int i = 0; i < index; i++) {
             cur = cur.next;
-            sb.append(cur.data);
-            sb.append("-->");
         }
-        sb.append("NULL");
-        return sb.toString();
+        return cur.val;
     }
 
-    private class Node {
-        private Node next;
-        private E data;
+    @Override
+    public E getFirst() {
+        return get(0);
+    }
 
-        public Node(E data) {
-            this.data = data;
-        }
+    @Override
+    public E getLast() {
+        return get(size - 1);
+    }
 
-        public Node(E data, Node next) {
-            this.next = next;
-            this.data = data;
+    @Override
+    public boolean contains(E e) {
+        Node cur = dummyHead.next;
+        while (cur != null) {
+            if (cur.val == e) {
+                return true;
+            } else {
+                cur = cur.next;
+            }
         }
-
-        public Node getNext() {
-            return next;
-        }
-
-        public void setNext(Node next) {
-            this.next = next;
-        }
-
-        public E getData() {
-            return data;
-        }
-
-        public void setData(E data) {
-            this.data = data;
-        }
+        return false;
     }
 
     private void checkIndexValid(int index) {
         if (index < 0 || index > size)
             throw new IllegalArgumentException("error index");
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("LinkedList :    ");
+        Node cur = dummyHead;
+        for (int i = 0; i < size; i++) {
+            cur = cur.next;
+            sb.append(cur.val);
+            sb.append("-->");
+        }
+        sb.append("NULL");
+        return sb.toString();
+    }
+    
+    private class Node {
+        public E val;
+        public Node next;
+
+        public Node(E val) {
+            this.val = val;
+        }
+
+        public Node(E val, Node next) {
+            this.val = val;
+            this.next = next;
+        }
     }
 }

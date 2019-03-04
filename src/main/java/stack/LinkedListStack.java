@@ -27,7 +27,7 @@ public class LinkedListStack<E> implements Stack<E> {
 
     @Override
     public E peek() {
-        return linkedList.getFisrt();
+        return linkedList.getFirst();
     }
 
     @Override
