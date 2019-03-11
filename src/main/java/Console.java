@@ -1,29 +1,30 @@
+import bst.BST;
 import common.Logger;
 import linkedlist.LinkedList;
 import stack.LinkedListStack;
 
 public class Console {
 
-    private static void linkedListTest(){
+    private static void linkedListTest() {
         LinkedList<String> list = new LinkedList<>();
-        list.add(0,"h");
-        list.add(1,"e");
-        list.add(2,"l");
+        list.add(0, "h");
+        list.add(1, "e");
+        list.add(2, "l");
         list.addFirst("w");
         list.addLast("a");
-        Logger.log(list);
+        Logger.logln(list);
 
-        Logger.log(list.get(1));
+        Logger.logln(list.get(1));
 //
 //        list.set(0,"h");
-//        Logger.log(list);
+//        Logger.logln(list);
 //
 //        list.set(4,"i");
-//        Logger.log(list);
+//        Logger.logln(list);
 //
-//        Logger.log(list.contains("z"));
+//        Logger.logln(list.contains("z"));
 
-//        Logger.log(list);
+//        Logger.logln(list);
     }
 
     private static void stackTest() {
@@ -39,22 +40,39 @@ public class Console {
         linkedListStack.push("f");
 
 
+        Logger.logln(linkedListStack);
 
-        Logger.log(linkedListStack);
-
-//        Logger.log(linkedListStack.pop());
-//        Logger.log(linkedListStack.pop());
-//        Logger.log(linkedListStack.pop());
-//        Logger.log(linkedListStack.pop());
+//        Logger.logln(linkedListStack.pop());
+//        Logger.logln(linkedListStack.pop());
+//        Logger.logln(linkedListStack.pop());
+//        Logger.logln(linkedListStack.pop());
 //
-//        Logger.log(linkedListStack);
-//        Logger.log(linkedListStack.peek());
-//        Logger.log(linkedListStack.peek());
-//        Logger.log(linkedListStack);
+//        Logger.logln(linkedListStack);
+//        Logger.logln(linkedListStack.peek());
+//        Logger.logln(linkedListStack.peek());
+//        Logger.logln(linkedListStack);
+    }
+
+    private static void BstTest() {
+        BST<Integer> bst = new BST<Integer>();
+        int[] arr = {17, 19, 3, 5, 34, 2, 1, 89};
+        for (int ele : arr) {
+            bst.add(ele);
+        }
+//        bst.preOrder();
+        bst.inOrder();
+
+        bst.removeMinimum();
+        bst.removeMaximum();
+
+        bst.inOrder();
+//        Logger.logln(bst.contains(7));
+//        Logger.logln(bst);
     }
 
     public static void main(String[] args) {
 //            linkedListTest();
-        stackTest();
+//        stackTest();
+        BstTest();
     }
 }

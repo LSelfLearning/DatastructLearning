@@ -31,6 +31,6 @@ public class ParenthesisMatchingSolution {
     }
 
     public static void main(String[] args) {
-        Logger.log(isValid("[哈哈{11(2233)444}555]"));
+        Logger.logln(isValid("[哈哈{11(2233)444}555]"));
     }
 }

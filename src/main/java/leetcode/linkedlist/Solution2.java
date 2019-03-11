@@ -50,7 +50,7 @@ public class Solution2 {
 
     public static void main(String[] args) {
         ListNode listNode = generateLinkedList();
-        Logger.log(listNode);
-        Logger.log(delEleRecursive(listNode, 1));
+        Logger.logln(listNode);
+        Logger.logln(delEleRecursive(listNode, 1));
     }
 }

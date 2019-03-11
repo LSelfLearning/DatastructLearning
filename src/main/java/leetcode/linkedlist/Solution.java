@@ -43,7 +43,7 @@ public class Solution {
 
     public static void main(String[] args) {
         ListNode listNode = generateLinkedList();
-        Logger.log(listNode);
-        Logger.log(removeElements(listNode, 1));
+        Logger.logln(listNode);
+        Logger.logln(removeElements(listNode, 1));
     }
 }
