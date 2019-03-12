@@ -102,6 +102,7 @@ public class BST<T extends Comparable<T>> {
         return val;
     }
 
+    //返回删除最小值后BST的根节点
     private Node removeMinimum(Node node) {
         if (node.left == null) {
             Node rightNode = node.right;
@@ -134,6 +135,49 @@ public class BST<T extends Comparable<T>> {
         }
         node.right = removeMaxmum(node.right);
         return node;
+    }
+
+    /**
+     * 删除值为val的节点
+     */
+    public void remove(T val) {
+        root = remove(root, val);
+    }
+
+    /**
+     * 删除以node为根节点的BST中值为val的节点，返回删除后的BST的根节点
+     */
+    private Node remove(Node node, T val) {
+        if (node == null)
+            return null;
+
+        if (val.compareTo(node.val) > 0) {
+            node.right = remove(node.right, val);
+            return node;
+        } else if (val.compareTo(node.val) < 0) {
+            node.left = remove(node.left, val);
+            return node;
+        } else {
+            if (node.left == null) {
+                size--;
+                Node rightNode = node.right;
+                node.right = null;
+                return rightNode;
+            }
+
+            if (node.right == null) {
+                size--;
+                Node leftNode = node.left;
+                node.left = null;
+                return leftNode;
+            }
+            Node successorNode = minMum(node.right);
+            successorNode.right = removeMinimum(node.right);
+            successorNode.left = node.left;
+
+            node.left = node.right = null;
+            return successorNode;
+        }
     }
 
     /**

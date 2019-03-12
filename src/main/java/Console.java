@@ -62,9 +62,11 @@ public class Console {
 //        bst.preOrder();
         bst.inOrder();
 
-        bst.removeMinimum();
-        bst.removeMaximum();
-
+//        bst.removeMinimum();
+//        bst.removeMaximum();
+//        bst.remove(1);
+//        bst.remove(89);
+        bst.remove(5);
         bst.inOrder();
 //        Logger.logln(bst.contains(7));
 //        Logger.logln(bst);
