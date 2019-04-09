@@ -2,12 +2,22 @@ package linkedlist;
 
 public class LinkedList<E> implements ILinkedList<E> {
 
-    private int size;
     private Node dummyHead;
+    private int size;
 
     public LinkedList() {
         dummyHead = new Node(null, null);
         size = 0;
+    }
+
+    private class Node {
+        public E data;
+        public Node next;
+
+        public Node(E data, Node next) {
+            this.data = data;
+            this.next = next;
+        }
     }
 
     @Override
@@ -42,6 +52,21 @@ public class LinkedList<E> implements ILinkedList<E> {
     }
 
     @Override
+    public void removeElement(E e) {
+        Node pre = this.dummyHead;
+        while (pre.next != null) {
+            if (pre.next.data.equals(e)){
+                Node delNode = pre.next;
+                pre.next = delNode.next;
+                delNode.next = null;
+                size--;
+            }else {
+                pre = pre.next;
+            }
+        }
+    }
+
+    @Override
     public E remove(int index) {
         checkIndexValid(index);
         Node pre = dummyHead;
@@ -52,7 +77,7 @@ public class LinkedList<E> implements ILinkedList<E> {
         pre.next = delNode.next;
         delNode.next = null;
         size--;
-        return delNode.val;
+        return delNode.data;
     }
 
     @Override
@@ -68,21 +93,20 @@ public class LinkedList<E> implements ILinkedList<E> {
     @Override
     public void set(int index, E e) {
         checkIndexValid(index);
-        Node cur = dummyHead;
-        for (int i = 0; i <= index; i++) {
+        Node cur = dummyHead.next;
+        for (int i = 0; i < index; i++) {
             cur = cur.next;
         }
-        cur.val = e;
+        cur.data = e;
     }
 
     @Override
     public E get(int index) {
         checkIndexValid(index);
         Node cur = dummyHead.next;
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < index; i++)
             cur = cur.next;
-        }
-        return cur.val;
+        return cur.data;
     }
 
     @Override
@@ -99,11 +123,9 @@ public class LinkedList<E> implements ILinkedList<E> {
     public boolean contains(E e) {
         Node cur = dummyHead.next;
         while (cur != null) {
-            if (cur.val == e) {
+            if (cur.data.equals(e))
                 return true;
-            } else {
-                cur = cur.next;
-            }
+            cur = cur.next;
         }
         return false;
     }
@@ -115,29 +137,14 @@ public class LinkedList<E> implements ILinkedList<E> {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("LinkedList :    ");
-        Node cur = dummyHead;
-        for (int i = 0; i < size; i++) {
+        StringBuilder res = new StringBuilder();
+        res.append("dummpHead->");
+        Node cur = dummyHead.next;
+        while (cur != null) {
+            res.append(cur.data);
+            res.append("->");
             cur = cur.next;
-            sb.append(cur.val);
-            sb.append("-->");
         }
-        sb.append("NULL");
-        return sb.toString();
-    }
-    
-    private class Node {
-        public E val;
-        public Node next;
-
-        public Node(E val) {
-            this.val = val;
-        }
-
-        public Node(E val, Node next) {
-            this.val = val;
-            this.next = next;
-        }
+        return res.substring(0, res.lastIndexOf("->"));
     }
 }

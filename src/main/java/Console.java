@@ -14,7 +14,10 @@ public class Console {
         list.addLast("a");
         Logger.logln(list);
 
-        Logger.logln(list.get(1));
+        list.removeElement("e");
+
+        Logger.logln(list);
+//        Logger.logln(list.get(1));
 //
 //        list.set(0,"h");
 //        Logger.logln(list);
@@ -72,9 +75,16 @@ public class Console {
 //        Logger.logln(bst);
     }
 
+    public static void linklistTest(){
+        LinkedList<Integer> list = new LinkedList<>();
+        list.addFirst(10);
+        Logger.logln(list);
+    }
+
     public static void main(String[] args) {
+
 //            linkedListTest();
 //        stackTest();
-        BstTest();
+//        BstTest();
     }
 }

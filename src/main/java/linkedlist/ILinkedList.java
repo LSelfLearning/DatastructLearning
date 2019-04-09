@@ -11,6 +11,8 @@ public interface ILinkedList<E> {
 
     void addLast(E e);
 
+    void removeElement(E e);
+
     E remove(int index);
 
     E removeFirst();
