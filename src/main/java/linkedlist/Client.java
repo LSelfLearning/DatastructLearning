@@ -7,19 +7,21 @@ public class Client {
 
     public static void main(String[] args) {
         LinkedList<String> list = new LinkedList();
-//        Logger.logTag("add(int index, E e) Test");
-//        list.add(0, "0");
-//        list.add(0, "l");
-//        list.add(0, "l");
-//        list.add(0, "e");
-//        list.add(0, "h");
+        Logger.logTag("add(int index, E e) Test");
+        list.add(0, "0");
+        list.add(0, "l");
+        list.add(0, "l");
+        list.add(0, "l");
+        list.add(0, "e");
+        list.add(0, "h");
 
-        list.addFirst("o");
-        list.addFirst("w");
+        list.removeElementRecursive("l");
+//        list.addFirst("o");
+//        list.addFirst("w");
         Logger.logln(list);
 
-        list.inverse();
-        Logger.logln(list);
+//        list.inverse();
+//        Logger.logln(list);
 //
 //        list.set(0,"h");
 //        list.set(2,"l");

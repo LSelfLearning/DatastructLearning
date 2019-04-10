@@ -68,6 +68,22 @@ public class LinkedList<E> implements ILinkedList<E> {
         }
     }
 
+    public void removeElementRecursive(E e) {
+        removeElementRecursive(dummyHead.next, e);
+    }
+
+    private Node removeElementRecursive(Node head, E e) {
+        if (head == null)
+            return null;
+        Node result = removeElementRecursive(head.next, e);
+        if (head.data == e) {
+            head = result;
+        } else {
+            head.next = result;
+        }
+        return head;
+    }
+
     @Override
     public E remove(int index) {
         checkIndexValid(index);
