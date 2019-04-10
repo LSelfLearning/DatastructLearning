@@ -1,5 +1,7 @@
 package linkedlist;
 
+import java.util.Stack;
+
 public class LinkedList<E> implements ILinkedList<E> {
 
     private Node dummyHead;
@@ -55,12 +57,12 @@ public class LinkedList<E> implements ILinkedList<E> {
     public void removeElement(E e) {
         Node pre = this.dummyHead;
         while (pre.next != null) {
-            if (pre.next.data.equals(e)){
+            if (pre.next.data.equals(e)) {
                 Node delNode = pre.next;
                 pre.next = delNode.next;
                 delNode.next = null;
                 size--;
-            }else {
+            } else {
                 pre = pre.next;
             }
         }
@@ -146,5 +148,26 @@ public class LinkedList<E> implements ILinkedList<E> {
             cur = cur.next;
         }
         return res.substring(0, res.lastIndexOf("->"));
+    }
+
+    public void inverse() {
+        if (size < 2)
+            return;
+        Stack<Node> stack = new Stack<>();
+        Node cur = dummyHead.next;
+        while (cur != null) {
+            stack.add(cur);
+            cur = cur.next;
+        }
+        dummyHead.next = stack.peek();
+        while (!stack.isEmpty()) {
+            Node pop = stack.pop();
+            if (!stack.isEmpty()) {
+                pop.next = stack.peek();
+            } else {
+                pop.next = null;
+            }
+        }
+
     }
 }

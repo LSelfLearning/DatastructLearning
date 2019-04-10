@@ -3,32 +3,40 @@ package linkedlist;
 import common.Logger;
 
 public class Client {
+
+
     public static void main(String[] args) {
         LinkedList<String> list = new LinkedList();
-        Logger.logTag("add(int index, E e) Test");
-        list.add(0, "0");
-        list.add(0, "l");
-        list.add(0, "3");
-        list.add(0, "e");
-        list.add(0, "2");
+//        Logger.logTag("add(int index, E e) Test");
+//        list.add(0, "0");
+//        list.add(0, "l");
+//        list.add(0, "l");
+//        list.add(0, "e");
+//        list.add(0, "h");
+
+        list.addFirst("o");
+        list.addFirst("w");
         Logger.logln(list);
 
-        list.set(0,"h");
-        list.set(2,"l");
-        list.addFirst("f");
+        list.inverse();
         Logger.logln(list);
-
-        list.remove(0);
-        Logger.logln(list);
-
-        list.addLast("f");
-        Logger.logln(list);
-
-        list.removeLast();
-        Logger.logln(list);
-
-        list.removeElement("l");
-        Logger.logln(list);
+//
+//        list.set(0,"h");
+//        list.set(2,"l");
+//        list.addFirst("f");
+//        Logger.logln(list);
+//
+//        list.remove(0);
+//        Logger.logln(list);
+//
+//        list.addLast("f");
+//        Logger.logln(list);
+//
+//        list.removeLast();
+//        Logger.logln(list);
+//
+//        list.removeElement("l");
+//        Logger.logln(list);
 //
 //        list.removeFirst();
 //        list.removeFirst();
