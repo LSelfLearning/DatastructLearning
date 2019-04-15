@@ -1,4 +1,4 @@
-package collection.set;
+package set;
 
 public interface Set<E> {
     //不能添加重复元素

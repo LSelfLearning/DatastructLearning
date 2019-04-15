@@ -1,4 +1,3 @@
-import bst.BST;
 import common.Logger;
 import linkedlist.LinkedList;
 import stack.LinkedListStack;
@@ -57,20 +56,20 @@ public class Console {
     }
 
     private static void BstTest() {
-        BST<Integer> bst = new BST<Integer>();
-        int[] arr = {17, 19, 3, 5, 34, 2, 1, 89};
-        for (int ele : arr) {
-            bst.add(ele);
-        }
+//        BST<Integer> bst = new BST<Integer>();
+//        int[] arr = {17, 19, 3, 5, 34, 2, 1, 89};
+//        for (int ele : arr) {
+//            bst.add(ele);
+//        }
 //        bst.preOrder();
-        bst.inOrder();
+//        bst.inOrder();
 
 //        bst.removeMinimum();
 //        bst.removeMaximum();
 //        bst.remove(1);
 //        bst.remove(89);
-        bst.remove(5);
-        bst.inOrder();
+//        bst.remove(5);
+//        bst.inOrder();
 //        Logger.logln(bst.contains(7));
 //        Logger.logln(bst);
     }

@@ -1,4 +1,4 @@
-package collection.set;
+package set;
 
 import linkedlist.ILinkedList;
 import linkedlist.LinkedList;

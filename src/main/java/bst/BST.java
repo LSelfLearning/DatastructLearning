@@ -1,15 +1,24 @@
 package bst;
 
 
-import common.Logger;
+import java.util.ArrayList;
+import java.util.List;
 
-public class BST<T extends Comparable<T>> {
+public class BST<E extends Comparable<E>> {
+
     private Node root;
-    private int size;
+    private int size = 0;
 
-    public BST() {
-        root = null;
-        size = 0;
+    private class Node {
+        public E val;
+        public Node left, right;
+
+        public Node(E val) {
+            this.val = val;
+            left = null;
+            right = null;
+        }
+
     }
 
     public int size() {
@@ -20,237 +29,217 @@ public class BST<T extends Comparable<T>> {
         return size == 0;
     }
 
-    public void add(T val) {
-        root = add(root, val);
+    public void add(E e) {
+        root = add(root, e);
     }
 
-    /**
-     * 返回添加元素后的根节点
-     */
-    private Node add(Node node, T val) {
+    private Node add(Node node, E e) {
         if (node == null) {
             size++;
-            return new Node(val);
+            return new Node(e);
         }
-        if (val.compareTo(node.val) > 0)
-            node.right = add(node.right, val);
-        else if (val.compareTo(node.val) < 0)
-            node.left = add(node.left, val);
+        if (e.compareTo(node.val) > 0) {
+            node.right = add(node.right, e);
+        } else if (e.compareTo(node.val) < 0) {
+            node.left = add(node.left, e);
+        }
         return node;
     }
 
-    public boolean contains(T val) {
-        return contains(root, val);
+    public boolean contains(E e) {
+        return contains(root, e);
     }
 
-    private boolean contains(Node node, T val) {
-        if (node == null)
+    private boolean contains(Node node, E e) {
+        if (node == null) {
             return false;
-        if (val.compareTo(node.val) == 0)
-            return true;
-        else if (val.compareTo(node.val) > 0)
-            return contains(node.right, val);
-        else
-            return contains(node.left, val);
-    }
-
-    /**
-     * 获取最大值
-     *
-     * @return
-     */
-    public T maxMum() {
-        if (isEmpty())
-            throw new RuntimeException("Empty BST");
-        Node maxNode = maxMum(root);
-        return maxNode.val;
-    }
-
-    private Node maxMum(Node node) {
-        if (node.right == null) {
-            return node;
         }
-        return maxMum(node.right);
+        if (e.compareTo(node.val) > 0) {
+            return contains(node.right, e);
+        } else if (e.compareTo(node.val) < 0) {
+            return contains(node.left, e);
+        } else {
+            return true;
+        }
+
     }
 
-    /**
-     * 获取最小值
-     *
-     * @return
-     */
-    public T minMum() {
-        if (isEmpty())
-            throw new RuntimeException("Empty BST");
-        Node minNode = minMum(root);
-        return minNode.val;
+    public List<E> preOrder() {
+        List<E> list = new ArrayList<>();
+        preOrder(root, list);
+        return list;
     }
 
-    private Node minMum(Node node) {
+    private void preOrder(Node node, List<E> list) {
+        if (node == null)
+            return;
+        list.add(node.val);
+        preOrder(node.left, list);
+        preOrder(node.right, list);
+    }
+
+    public List<E> inOrder() {
+        List<E> list = new ArrayList<>();
+        inOrder(root, list);
+        return list;
+    }
+
+    private void inOrder(Node node, List<E> list) {
+        if (node == null)
+            return;
+        inOrder(node.left, list);
+        list.add(node.val);
+        inOrder(node.right, list);
+    }
+
+    public List<E> postOrder() {
+        List<E> list = new ArrayList<>();
+        postOrder(root, list);
+        return list;
+    }
+
+    private void postOrder(Node node, List<E> list) {
+        if (node == null)
+            return;
+        postOrder(node.left, list);
+        postOrder(node.right, list);
+        list.add(node.val);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        generateStr(root, 0, res);
+        return res.toString();
+    }
+
+    private void generateStr(Node node, int depth, StringBuilder res) {
+        if (node == null) {
+            res.append(generateDepthSymbol(depth) + "Null" + "\n");
+            return;
+        }
+        res.append(generateDepthSymbol(depth));
+        res.append(node.val);
+        res.append("\n");
+        depth++;
+        generateStr(node.left, depth, res);
+        generateStr(node.right, depth, res);
+    }
+
+    private String generateDepthSymbol(int depth) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i <= depth; i++)
+            sb.append("--");
+        return sb.append(">").toString();
+    }
+
+    public E maximum() {
+        if (root == null)
+            return null;
+        return maximum(root).val;
+    }
+
+    private Node maximum(Node node) {
+        if (node.right == null)
+            return node;
+        return maximum(node.right);
+    }
+
+    public E minimum() {
+        if (root == null)
+            return null;
+        return minimum(root).val;
+    }
+
+    private Node minimum(Node node) {
         if (node.left == null)
             return node;
-        return minMum(node.left);
+        return minimum(node.left);
+    }
+
+
+    public E removeMax() {
+        if (root == null)
+            return null;
+        E maximum = maximum();
+        root = removeMax(root);
+        return maximum;
     }
 
     /**
-     * 删除最小值
-     *
-     * @return
+     * 删除以node为根节点的bst中的最大值，返回删除元素后bst的root
      */
-    public T removeMinimum() {
-        T val = minMum();
-        root = removeMinimum(root);
-        return val;
-    }
-
-    //返回删除最小值后BST的根节点
-    private Node removeMinimum(Node node) {
-        if (node.left == null) {
-            Node rightNode = node.right;
-            node.right = null;
-            size--;
-            return rightNode;
-        }
-        node.left = removeMinimum(node.left);
-        return node;
-
-    }
-
-    /**
-     * 删除最大值
-     *
-     * @return
-     */
-    public T removeMaximum() {
-        T val = maxMum();
-        root = removeMaxmum(root);
-        return val;
-    }
-
-    private Node removeMaxmum(Node node) {
+    private Node removeMax(Node node) {
         if (node.right == null) {
             Node leftNode = node.left;
             node.left = null;
             size--;
             return leftNode;
         }
-        node.right = removeMaxmum(node.right);
+        node.right = removeMax(node.right);
         return node;
     }
 
-    /**
-     * 删除值为val的节点
-     */
-    public void remove(T val) {
-        root = remove(root, val);
+    public E removeMin() {
+        if (root == null)
+            return null;
+        E minimum = minimum();
+        root = removeMin(root);
+        return minimum;
     }
 
     /**
-     * 删除以node为根节点的BST中值为val的节点，返回删除后的BST的根节点
+     * 删除以node为节点的bst中的最小值，返回删除元素后bst的root
      */
-    private Node remove(Node node, T val) {
+    private Node removeMin(Node node) {
+        if (node.left == null) {
+            Node rightNode = node.right;
+            node.right = null;
+            size--;
+            return rightNode;
+        }
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    public void remove(E e) {
+        root = remove(root, e);
+    }
+
+    /**
+     * 删除以node为根节点的bst中的val，返回删除后bst的root
+     */
+    private Node remove(Node node, E e) {
         if (node == null)
             return null;
 
-        if (val.compareTo(node.val) > 0) {
-            node.right = remove(node.right, val);
-            return node;
-        } else if (val.compareTo(node.val) < 0) {
-            node.left = remove(node.left, val);
-            return node;
+        if (e.compareTo(node.val) > 0) {
+            node.right = remove(node.right, e);
+        } else if (e.compareTo(node.val) < 0) {
+            node.left = remove(node.left, e);
         } else {
             if (node.left == null) {
-                size--;
                 Node rightNode = node.right;
                 node.right = null;
+                size--;
                 return rightNode;
             }
 
             if (node.right == null) {
-                size--;
                 Node leftNode = node.left;
                 node.left = null;
+                size--;
                 return leftNode;
             }
-            Node successorNode = minMum(node.right);
-            successorNode.right = removeMinimum(node.right);
-            successorNode.left = node.left;
 
+            Node successorNode = minimum(node.right);
+            successorNode.right = removeMin(node.right);
+            successorNode.left = node.left;
             node.left = node.right = null;
             return successorNode;
+
         }
+        return node;
     }
 
-    /**
-     * 前序遍历
-     */
-    public void preOrder() {
-        StringBuilder res = new StringBuilder();
-        res.append("BST preOrder:   ");
-        preOrder(root, res);
-        Logger.logln(res.toString());
-    }
-
-    private void preOrder(Node node, StringBuilder res) {
-        if (node == null)
-            return;
-        res.append(node.val + "   ");
-        preOrder(node.left, res);
-        preOrder(node.right, res);
-    }
-
-    /**
-     * 中序遍历
-     */
-    public void inOrder() {
-        StringBuilder res = new StringBuilder();
-        res.append("BST inOrder:   ");
-        inOrder(root, res);
-        Logger.logln(res.toString());
-    }
-
-    private void inOrder(Node node, StringBuilder res) {
-        if (node == null)
-            return;
-        inOrder(node.left, res);
-        res.append(node.val + "   ");
-        inOrder(node.right, res);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder res = new StringBuilder();
-        generateBstStr(root, 0, res);
-        return res.toString();
-    }
-
-
-    private void generateBstStr(Node node, int depth, StringBuilder res) {
-        if (node == null) {
-            res.append(generateDepthPrefix(depth) + "NULL" + '\n');
-        } else {
-            res.append(generateDepthPrefix(depth) + node.val + '\n');
-            depth++;
-            generateBstStr(node.left, depth, res);
-            generateBstStr(node.right, depth, res);
-        }
-    }
-
-    private String generateDepthPrefix(int depth) {
-        StringBuilder res = new StringBuilder();
-        for (int i = 0; i < depth; i++)
-            res.append("--");
-        return res.toString();
-    }
-
-    private class Node {
-        public T val;
-        public Node left, right;
-
-        public Node(T val) {
-            this.val = val;
-            left = null;
-            right = null;
-        }
-
-    }
 }
