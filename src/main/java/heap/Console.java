@@ -19,5 +19,12 @@ public class Console {
             arr.add(i, maxHeap.extractMax());
         }
         Logger.logln(arr);
+
+        Integer[] intArr = new Integer[15];
+        for (int i = 0; i <15; i++) {
+            intArr[i] = random.nextInt(100);
+        }
+        MaxHeap<Integer> maxHeap1 = new MaxHeap<>(intArr);
+        Logger.logln(maxHeap1);
     }
 }
