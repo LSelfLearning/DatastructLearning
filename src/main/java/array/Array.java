@@ -90,6 +90,16 @@ public class Array<E> {
         return false;
     }
 
+    public void swap(int index1, int index2) {
+        if (index1 < 0 || index1 >= size)
+            throw new IllegalArgumentException("Index1 is illegal.");
+        if (index2 < 0 || index2 >= size)
+            throw new IllegalArgumentException("Index2 is illegal.");
+        E temp = data[index1];
+        data[index1] = data[index2];
+        data[index2] = temp;
+    }
+
     // 查找数组中元素e所在的索引，如果不存在元素e，则返回-1
     public int find(E e) {
         for (int i = 0; i < size; i++) {
