@@ -1,5 +1,7 @@
 package trie;
 
+import common.Logger;
+
 import java.util.HashMap;
 
 public class Trie {

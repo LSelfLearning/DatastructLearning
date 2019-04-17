@@ -8,8 +8,14 @@ public class Console {
         trie.add("hello");
         trie.add("World");
 
-        Logger.logln(trie.contains("World"));
+        Logger.logln(trie.contains("hllo"));
 
         Logger.logln(trie.isPrefix("he"));
+
+        WordDictionary wordDictionary = new WordDictionary();
+        wordDictionary.addWord("test");
+        wordDictionary.addWord("dd");
+
+        Logger.logln(wordDictionary.search("tet"));
     }
 }
