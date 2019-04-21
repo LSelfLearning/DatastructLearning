@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class SortTestHelper {
     public enum Algorithm {
-        BUBBLE, INSERTION, SELECTION, MERGE
+        BUBBLE, INSERTION, SELECTION, MERGE, QUICK
     }
 
     public void test(Algorithm algorithm, int dataSize) {
@@ -25,6 +25,9 @@ public class SortTestHelper {
                 break;
             case MERGE:
                 sortAlgorithm = new MergeSort();
+                break;
+            case QUICK:
+                sortAlgorithm = new QuickSort();
                 break;
             default:
                 sortAlgorithm = new BubbleSort();
@@ -50,6 +53,9 @@ public class SortTestHelper {
             case MERGE:
                 sortAlgorithm = new MergeSort();
                 break;
+            case QUICK:
+                sortAlgorithm = new QuickSort();
+                break;
             default:
                 sortAlgorithm = new BubbleSort();
         }
@@ -64,10 +70,12 @@ public class SortTestHelper {
         Integer[] arr2 = Arrays.copyOf(arr, arr.length);
         Integer[] arr3 = Arrays.copyOf(arr, arr.length);
         Integer[] arr4 = Arrays.copyOf(arr, arr.length);
+        Integer[] arr5 = Arrays.copyOf(arr, arr.length);
         test(Algorithm.BUBBLE, arr);
         test(Algorithm.INSERTION, arr2);
         test(Algorithm.SELECTION, arr3);
         test(Algorithm.MERGE, arr4);
+        test(Algorithm.QUICK, arr5);
     }
 
     private static Integer[] generateArr(int size) {

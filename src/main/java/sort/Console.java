@@ -4,6 +4,6 @@ public class Console {
 
     public static void main(String[] args) {
         SortTestHelper sortTestHelper = new SortTestHelper();
-        sortTestHelper.test(30000);
+        sortTestHelper.test(100000);
     }
 }
