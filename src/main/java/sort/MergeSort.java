@@ -20,7 +20,7 @@ public class MergeSort implements SortAlgorithm {
     }
 
     /**
-     * 将arr[l...mid]和arr[mid+1...r]两部分进行归并
+     * 将排好序的arr[l...mid]和arr[mid+1...r]两部分进行归并
      */
     private void merge(Comparable[] arr, int l, int mid, int r) {
         Comparable[] aux = new Comparable[r - l + 1];
@@ -30,21 +30,30 @@ public class MergeSort implements SortAlgorithm {
         }
         int leftPartIndex = l;
         int rightPartIndex = mid + 1;
-        for (int k = l; k <= r; k++) {
+
+        for (int cur = l; cur <= r; cur++) {
+
             if (leftPartIndex > mid) {
-                arr[k] = aux[rightPartIndex - l];
+                //左半边部分遍历结束时，将右半边部分依次放入数组相应位置
+                arr[cur] = aux[rightPartIndex - l];
                 rightPartIndex++;
+
             } else if (rightPartIndex > r) {
-                arr[k] = aux[leftPartIndex - l];
+                //右半边部分遍历结束时，将左半边部分依次放入数组相应位置
+                arr[cur] = aux[leftPartIndex - l];
                 leftPartIndex++;
+
             } else if (aux[leftPartIndex - l].compareTo(aux[rightPartIndex - l]) < 0) {
-                arr[k] = aux[leftPartIndex - l];
+                //左半边元素比右半边元素小，将左半边元素放入数组相应位置
+                arr[cur] = aux[leftPartIndex - l];
                 leftPartIndex++;
             } else {
-                arr[k] = aux[rightPartIndex - l];
+                //右半边元素比左半边元素小，将右半边元素放入数组相应位置
+                arr[cur] = aux[rightPartIndex - l];
                 rightPartIndex++;
             }
         }
 
     }
+
 }
