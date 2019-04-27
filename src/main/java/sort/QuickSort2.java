@@ -17,6 +17,9 @@ public class QuickSort2 implements SortAlgorithm {
         quickSort(arr, partition + 1, r);
     }
 
+    /**
+     * 某网友的写法
+     */
     private static int partition(int[] arr, int l, int r) {
         int leftIndex, rightIndex, baseVal;
         leftIndex = l;

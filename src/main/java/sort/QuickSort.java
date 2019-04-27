@@ -20,21 +20,22 @@ public class QuickSort implements SortAlgorithm {
     /**
      * 对arr[l,r]部分进行partition操作，返回p，使得arr[l,p-1] < arr[p];
      * arr[p+1,r] > arr[p]
+     * 换句话说，将arr[l]放到正确的位置，返回该位置的index
      */
     private int partition(Comparable[] arr, int l, int r) {
-        Comparable v = arr[l];
-        int j = l;
+        Comparable baseVal = arr[l];
+        int rightBaseValIndex = l;
         for (int i = l + 1; i <= r; i++) {
-            if (arr[i].compareTo(v) < 0) {
-                j++;
-                Comparable temp = arr[j];
-                arr[j] = arr[i];
+            if (arr[i].compareTo(baseVal) < 0) {
+                rightBaseValIndex++;
+                Comparable temp = arr[rightBaseValIndex];
+                arr[rightBaseValIndex] = arr[i];
                 arr[i] = temp;
             }
         }
-        Comparable temp = arr[l];
-        arr[l] = arr[j];
-        arr[j] = temp;
-        return j;
+        Comparable temp = arr[rightBaseValIndex];
+        arr[rightBaseValIndex] = arr[l];
+        arr[l] = temp;
+        return rightBaseValIndex;
     }
 }
